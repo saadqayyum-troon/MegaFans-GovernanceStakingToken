@@ -20,7 +20,7 @@ contract Staking is IStaking, Ownable {
         GovernanceToken = IERC20(_governanceToken);
     }
 
-    function stake(uint256 _amount) public {
+    function stake(uint256 _amount) public override {
         require(_amount > 0, "Stake: staking amount must be greater than zero");
 
         // msg.sender must approve _amount tokens to this contract
@@ -52,7 +52,7 @@ contract Staking is IStaking, Ownable {
         );
     }
 
-    function unstake(uint256 _stakeId) public {
+    function unstake(uint256 _stakeId) public override {
         Stake memory stakeState = stakes[_stakeId];
 
         require(

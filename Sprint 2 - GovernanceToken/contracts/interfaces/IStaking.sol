@@ -11,4 +11,8 @@ interface IStaking {
 
     event Staked(address indexed staker, uint256 amount);
     event Unstaked(address indexed staker, uint256 amount);
+
+    function stake(uint256 _amount) external;
+
+    function unstake(uint256 _stakeId) external;
 }
