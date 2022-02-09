@@ -98,17 +98,13 @@ describe("Testcase 3 : Check if unstaking functionality works", () => {
       .to.emit(Staking, "Staked")
       .withArgs(staker1.address, 1000);
 
-    // Get Release Time
-    const stakeObj = await Staking.stakes(1);
-    const current = await Staking.getCurrentTimestamp();
-
     await expect(Staking.connect(staker1).unstake(1)).to.be.revertedWith(
       "Unstake: Time has not elapsed for unstaking"
     );
   });
 
   // it("3.3.", async () => {
-  //   it("3.3. It should unstake token sucessdully", async () => {});
+  //   it("3.3. It should unstake token sucessfully", async () => {});
   //   await GovernanceToken.connect(staker1).mint(staker1.address, 10000);
   //   await GovernanceToken.connect(staker1).approve(Staking.address, 1000);
 
@@ -120,7 +116,7 @@ describe("Testcase 3 : Check if unstaking functionality works", () => {
   //   const stakeObj = await Staking.stakes(1);
   //   const current = await Staking.getCurrentTimestamp();
 
-  //   // sleepfor(6000);
+  //    sleepfor(6000);
 
   //   await expect(Staking.connect(staker1).unstake(1))
   //     .to.emit(Staking, "Unstaked")
