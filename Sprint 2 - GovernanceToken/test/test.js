@@ -77,8 +77,7 @@ describe("Testcase 2 : Check if staking functionality works", () => {
 });
 
 describe("Testcase 3 : Check if unstaking functionality works", () => {
-  // it("3.1.", async () => {
-  //   it("3.3. It should unstake token sucessfully", async () => {});
+  // it("3.1.  It should unstake token sucessfully", async () => {
   //   await GovernanceToken.connect(staker1).mint(staker1.address, 10000);
   //   await GovernanceToken.connect(staker1).approve(Staking.address, 1000);
 
@@ -92,9 +91,14 @@ describe("Testcase 3 : Check if unstaking functionality works", () => {
 
   //   sleepfor(6000);
 
+  //   let bal1 = await GovernanceToken.balanceOf(staker1.address);
+
   //   await expect(Staking.connect(staker1).unstake(1))
   //     .to.emit(Staking, "Unstaked")
   //     .withArgs(ethers.constants.AddressZero, 0);
+
+  //   let bal2 = await GovernanceToken.balanceOf(staker1.address);
+  //   expect((parseInt(bal1) + 1000).toString()).to.equal(bal2);
   // });
 
   it("3.2. It should fail if a random user unstakes someone's token", async () => {
