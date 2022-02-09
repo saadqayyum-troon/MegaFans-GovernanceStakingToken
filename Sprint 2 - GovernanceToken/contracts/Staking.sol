@@ -71,7 +71,7 @@ contract Staking is IStaking, Ownable {
 
         userStakeCount[msg.sender]--;
 
-        emit Unstaked(stakeState.stakerAddress, stakeState.balance);
+        emit Unstaked(stakes[_stakeId].stakerAddress, stakes[_stakeId].balance);
     }
 
     function totalBalance() public view onlyOwner returns (uint256 balance) {
@@ -92,5 +92,9 @@ contract Staking is IStaking, Ownable {
         }
 
         return stakesData;
+    }
+
+    function getCurrentTimestamp() public view returns (uint256) {
+        return block.timestamp;
     }
 }
