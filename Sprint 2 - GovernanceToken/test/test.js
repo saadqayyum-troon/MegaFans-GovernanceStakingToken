@@ -63,12 +63,12 @@ describe("Testcase 2 : Check if staking functionality works", () => {
     expect(res3.length).to.equal(2);
   });
 
-  it("2.2. It should fail if staking amount is 0", async () => {
+  it("2.3. It should fail if staking amount is 0", async () => {
     await expect(Staking.connect(staker1).stake(0)).to.be.revertedWith(
       "Stake: staking amount must be greater than zero"
     );
   });
-  it("2.3. It should fail if tokens are not approved", async () => {
+  it("2.4. It should fail if tokens are not approved", async () => {
     await GovernanceToken.connect(staker1).mint(staker1.address, 10000);
     await expect(Staking.connect(staker1).stake(1000)).to.be.revertedWith(
       "ERC20: transfer amount exceeds allowance"
@@ -77,33 +77,7 @@ describe("Testcase 2 : Check if staking functionality works", () => {
 });
 
 describe("Testcase 3 : Check if unstaking functionality works", () => {
-  it("3.1. It should fail if a random user unstakes someone's token", async () => {
-    await GovernanceToken.connect(staker1).mint(staker1.address, 10000);
-    await GovernanceToken.connect(staker1).approve(Staking.address, 1000);
-
-    expect(await Staking.connect(staker1).stake(1000))
-      .to.emit(Staking, "Staked")
-      .withArgs(staker1.address, 1000);
-
-    await expect(Staking.connect(staker2).unstake(1)).to.be.revertedWith(
-      "Unstake: Only staker can unstake!"
-    );
-  });
-
-  it("3.2. It should fail if time has not elapsed for unstake", async () => {
-    await GovernanceToken.connect(staker1).mint(staker1.address, 10000);
-    await GovernanceToken.connect(staker1).approve(Staking.address, 1000);
-
-    expect(await Staking.connect(staker1).stake(1000))
-      .to.emit(Staking, "Staked")
-      .withArgs(staker1.address, 1000);
-
-    await expect(Staking.connect(staker1).unstake(1)).to.be.revertedWith(
-      "Unstake: Time has not elapsed for unstaking"
-    );
-  });
-
-  // it("3.3.", async () => {
+  // it("3.1.", async () => {
   //   it("3.3. It should unstake token sucessfully", async () => {});
   //   await GovernanceToken.connect(staker1).mint(staker1.address, 10000);
   //   await GovernanceToken.connect(staker1).approve(Staking.address, 1000);
@@ -116,10 +90,36 @@ describe("Testcase 3 : Check if unstaking functionality works", () => {
   //   const stakeObj = await Staking.stakes(1);
   //   const current = await Staking.getCurrentTimestamp();
 
-  //    sleepfor(6000);
+  //   sleepfor(6000);
 
   //   await expect(Staking.connect(staker1).unstake(1))
   //     .to.emit(Staking, "Unstaked")
   //     .withArgs(ethers.constants.AddressZero, 0);
   // });
+
+  it("3.2. It should fail if a random user unstakes someone's token", async () => {
+    await GovernanceToken.connect(staker1).mint(staker1.address, 10000);
+    await GovernanceToken.connect(staker1).approve(Staking.address, 1000);
+
+    expect(await Staking.connect(staker1).stake(1000))
+      .to.emit(Staking, "Staked")
+      .withArgs(staker1.address, 1000);
+
+    await expect(Staking.connect(staker2).unstake(1)).to.be.revertedWith(
+      "Unstake: Only staker can unstake!"
+    );
+  });
+
+  it("3.3. It should fail if time has not elapsed for unstake", async () => {
+    await GovernanceToken.connect(staker1).mint(staker1.address, 10000);
+    await GovernanceToken.connect(staker1).approve(Staking.address, 1000);
+
+    expect(await Staking.connect(staker1).stake(1000))
+      .to.emit(Staking, "Staked")
+      .withArgs(staker1.address, 1000);
+
+    await expect(Staking.connect(staker1).unstake(1)).to.be.revertedWith(
+      "Unstake: Time has not elapsed for unstaking"
+    );
+  });
 });
